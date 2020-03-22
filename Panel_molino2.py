@@ -29,20 +29,20 @@ def save(gpio):
             print(str(cadena))
 
             tkMessageBox.showinfo("Save",message="Horario Programado con Exito")
-            os.system("sudo chmod -R 777 /etc/cron.d/encenderGpio") 
-            pf=open(r'/etc/cron.d/encenderGpio','w') 
+            os.system("sudo chmod -R 777 /etc/cron.d/on"+str(gpio)+"")
+            pf=open(r'/etc/cron.d/on{var}'.format(var=gpio),'w')
             pf.write(cadena) 
             pf.write("\n") 
             pf.close() 
             cadena2=(str(mf)+''+str(tab)+''+str(hf)+''+str(tab)+''+str(dia)+''+str(tab)+''+str(mes)+''+str(tab)+''+str(ano)+''+str(tab)+''+str(user)+''+str(tab)+''+str(path2)) 
             print(str(cadena2)) 
-            os.system("sudo chmod -R 777 /etc/cron.d/apagarGpio") 
-            pf2=open(r'/etc/cron.d/apagarGpio','w') 
+            os.system("sudo chmod -R 777 /etc/cron.d/off"+str(gpio)+"") 
+            pf2=open(r'/etc/cron.d/off{var}'.format(var=gpio),'w')
             pf2.write(cadena2) 
             pf2.write("\n") 
             pf2.close()
-            os.system("sudo chmod -R 755 /etc/cron.d/encenderGpio")
-            os.system("sudo chmod -R 755 /etc/cron.d/apagarGpio")
+            os.system("sudo chmod -R 755 /etc/cron.d/on"+str(gpio)+"")
+            os.system("sudo chmod -R 755 /etc/cron.d/off"+str(gpio)+"")
             os.system("sudo /etc/init.d/cron restart")
          else:
             tkMessageBox.showerror("Error", message="Campos incompletos")
@@ -55,7 +55,7 @@ def toplevel(gpio):
 
     v1=Toplevel()
     v1.title("Configurar Horarios")
-    v1.geometry("450x300+550+0")
+    v1.geometry("450x300+900+0")
     mini=StringVar()
     minf=StringVar()
     horai=StringVar()
@@ -82,7 +82,7 @@ def toplevel(gpio):
     botosettings=Button(v1,image=imgsave,command=lambda:save(gpio)).place(x=215,y=220,height=50,width=50)
 
     # Boton Salir 
-    botonclose=Button(v1,text="Salir",command=v1.destroy).place (x=295,y=220,height=50)
+    botonclose=Button(v1,image=quit_image,command=v1.destroy).place (x=295,y=220,height=50)
 
     # Reloj Time
     def update():
