@@ -28,7 +28,6 @@ def save(gpio):
             cadena=(str(mi)+''+str(tab)+''+str(hi)+''+str(tab)+''+str(dia)+''+str(tab)+''+str(mes)+''+str(tab)+''+str(ano)+''+str(tab)+''+str(user)+''+str(tab)+''+str(path))
             print(str(cadena))
 
-            tkMessageBox.showinfo("Save",message="Horario Programado con Exito")
             os.system("sudo chmod -R 777 /etc/cron.d/on"+str(gpio)+"")
             pf=open(r'/etc/cron.d/on{var}'.format(var=gpio),'w')
             pf.write(cadena) 
@@ -44,6 +43,7 @@ def save(gpio):
             os.system("sudo chmod -R 755 /etc/cron.d/on"+str(gpio)+"")
             os.system("sudo chmod -R 755 /etc/cron.d/off"+str(gpio)+"")
             os.system("sudo /etc/init.d/cron restart")
+            tkMessageBox.showinfo("Save",message="Horario Programado con Exito")
          else:
             tkMessageBox.showerror("Error", message="Campos incompletos")
 
